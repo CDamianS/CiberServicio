@@ -1,0 +1,23 @@
+<%- include ("layouts/header") %>
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+</head>
+<body>
+    <h1>Usuarios registrados: </h1>
+
+    <% for(var i=0;i<usersDB.length;i++) { %>
+        <h3> <%=usersDB[i].name %> </h3>
+    <% } %>
+
+    <form class="userForm" action="/" method="post">
+        <input type="text" name="newUserName" placeholder="Nombre Completo" autocomplete="off">
+        <button type="submit" name="list" value="<%= title %>">+</button>
+    </form>
+
+</body>
+</html>
