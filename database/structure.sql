@@ -22,6 +22,6 @@ CREATE TABLE sanciones (
 
 CREATE TABLE log (
     id INTEGER AUTO_INCREMENT NOT NULL,
-    actionPerformed VARCHAR(255),
+    actionPerformed VARCHAR(255), 
     PRIMARY KEY (id)
 );

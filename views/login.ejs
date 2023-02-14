@@ -14,9 +14,11 @@
         <h3> <%=usersDB[i].name %> </h3>
     <% } %>
 
-    <form class="userForm" action="/" method="post">
+    <!-- Use full path from root folder on the form class action -->
+    <form class="userForm" action="/login" method="post">
         <input type="text" name="newUserName" placeholder="Nombre Completo" autocomplete="off">
-        <button type="submit" name="list" value="<%= title %>">+</button>
+        <input type="text" name="newUserRole" placeholder="Rol" autocomplete="off">
+        <button type="submit" name="newUserSubmit">+</button>
     </form>
 
 </body>
