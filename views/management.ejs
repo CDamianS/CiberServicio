@@ -11,10 +11,11 @@
     <h1>Usuarios registrados: </h1>
 
     <% for(var i=0;i<usersDB.length;i++) { %>
-        <h3> <%=usersDB[i].name %> </h3>
+        <p> <%=usersDB[i].id %> | <%=usersDB[i].name %> | <%=usersDB[i].matricula %> | <%=usersDB[i].role %> </p>
     <% } %>
 
-    <form class="userForm" action="/management" method="post">
+    <form class="userForm" action="/management/addUser" method="post">
+        <input type="text" name="newUserMatr" placeholder="Matrícula" autocomplete="off">
         <input type="text" name="newUserName" placeholder="Nombre Completo" autocomplete="off">
         <input type="text" name="newUserRole" placeholder="Rol" autocomplete="off">
         <button type="submit" name="list">+</button>

@@ -17,9 +17,9 @@ router.get('/', function(req, res, next) {
     });
   });
   
-router.post('/', function(req, res){
+router.post('/addUser', function(req, res){
 
-  let sql = `INSERT INTO users (name, role) VALUES ('${req.body.newUserName}', '${req.body.newUserRole}')`;
+  let sql = `INSERT INTO users (matricula, name, role) VALUES ('${req.body.newUserMatr}', '${req.body.newUserName}', '${req.body.newUserRole}')`;
   connection.query(sql, err=>{
     if(!err)
     {
