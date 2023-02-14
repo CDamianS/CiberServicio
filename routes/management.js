@@ -12,9 +12,24 @@ router.get('/', function(req, res, next) {
       //console.log(data);
 
       /* Rendered page with queried data*/
-      res.render('login', { title: 'Login', usersDB: data });
+      res.render('management', { title: 'Management', usersDB: data });
         
     });
   });
   
+router.post('/', function(req, res){
+
+  let sql = `INSERT INTO users (name, role) VALUES ('${req.body.newUserName}', '${req.body.newUserRole}')`;
+  connection.query(sql, err=>{
+    if(!err)
+    {
+    console.log('Successfully added user')
+    res.redirect('/management')
+    
+    }
+    else
+    console.log(err);
+  });
+});
+
 module.exports = router;
