@@ -15,9 +15,9 @@
     <% } %>
 
     <form class="userForm" action="/management/addUser" method="post">
-        <input type="text" name="newUserMatr" placeholder="Matrícula" autocomplete="off">
-        <input type="text" name="newUserName" placeholder="Nombre Completo" autocomplete="off">
-        <input type="text" name="newUserRole" placeholder="Rol" autocomplete="off">
+        <input type="text" name="newUserMatr" placeholder="Matrícula" autocomplete="off" required>
+        <input type="text" name="newUserName" placeholder="Nombre Completo" autocomplete="off" required>
+        <input type="text" name="newUserRole" placeholder="Rol" autocomplete="off" required>
         <button type="submit" name="list">+</button>
     </form>
 
