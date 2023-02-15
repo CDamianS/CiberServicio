@@ -10,11 +10,18 @@
 <body>
     <h1>Usuarios registrados: </h1>
 
-    <% for(var i=0;i<usersDB.length;i++) { %>
-        <p> <%=usersDB[i].id %> | <%=usersDB[i].name %> | <%=usersDB[i].matricula %> | <%=usersDB[i].role %> </p>
-    <% } %>
+    <div class="box">
+        <% for(var i=0;i<usersDB.length;i++) { %>
+            <form class="deleteUserForm" action="/management/deleteUser" method="post">
+                <div class="usersList">
+                    <input type="checkbox" name="deleteUserCheckbox" value="<%=usersDB[i].id %>" onChange="this.form.submit()">
+                    <p> <%=usersDB[i].id %> | <%=usersDB[i].name %> | <%=usersDB[i].matricula %> | <%=usersDB[i].role %> </p>
+                </div>
+            </form>
+        <% } %>
+    </div>
 
-    <form class="userForm" action="/management/addUser" method="post">
+    <form class="newUserForm" action="/management/addUser" method="post">
         <input type="text" name="newUserMatr" placeholder="Matrícula" autocomplete="off">
         <input type="text" name="newUserName" placeholder="Nombre Completo" autocomplete="off">
         <input type="text" name="newUserRole" placeholder="Rol" autocomplete="off">

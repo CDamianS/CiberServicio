@@ -32,4 +32,36 @@ router.post('/addUser', function(req, res){
   });
 });
 
+/*
+router.post('/modifyUser', function(req, res){
+
+  let sql = `INSERT INTO users (matricula, name, role) VALUES ('${req.body.newUserMatr}', '${req.body.newUserName}', '${req.body.newUserRole}')`;
+  connection.query(sql, err=>{
+    if(!err)
+    {
+    console.log('Successfully added user')
+    res.redirect('/management')
+    
+    }
+    else
+    console.log(err);
+  });
+});
+*/
+router.post('/deleteUser', function(req, res){
+
+  let idToDelete= req.body['deleteUserCheckbox']
+  let sql = `DELETE FROM users WHERE id=${idToDelete}`;
+  connection.query(sql, err=>{
+    if(!err)
+    {
+    console.log('Successfully deleted user')
+    res.redirect('/management')
+    
+    }
+    else
+    console.log(err);
+  });
+});
+
 module.exports = router;
