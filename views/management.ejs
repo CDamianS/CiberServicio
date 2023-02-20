@@ -9,26 +9,36 @@
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous">
 
+    <!-- No se que cosa del Modal pero se necesita -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+
     <title>Management</title>
 </head>
 <body>
+    
     <!-- Comieza Seccion de usuarios -->
+    
     <h1>Usuarios registrados: </h1>
+    
     <!-- Despliege de usuarios -->
     <div class="box">
         <% for(var i=0;i<usersDB.length;i++) { %>
             <div class="usersList">
+                
                 <!-- Manipulacion de usuarios (Borrar) -->
-                <form class="deleteUserForm" action="/management/deleteUser" method="post"></form>
-                    <input type="checkbox" name="deleteUserCheckbox" value="<%=usersDB[i].id %>" onChange="this.form.submit()">
+                <form class="deleteUserForm" action="/management/deleteUser" method="post">
+                    <button type="submit" name="deleteUserButton" value="<%=usersDB[i].id %>" class="btn btn-primary">Borrar</button>
                 </form>
+                
                 <!-- Registros de usuarios -->
                 <p> <%=usersDB[i].id %> | <%=usersDB[i].name %> | <%=usersDB[i].matricula %> | <%=usersDB[i].role %> </p>
+                
                 <!-- Manipulacion de usuarios (Modificar) -->
                 <!-- Button trigger modal !!! El modal es una ventana popup -->
-                <button type="button" class="btn btn-primary" role="dialog" data-bs-toggle="modal" data-bs-target="#exampleModal">Modificar</button>
+                <button type="submit" class="btn btn-success update"   value="<%=usersDB[i].id %>"  >Update</button>
+                
                 <!-- Modal -->
-                <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal fade" id="myModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" role="dialog">
                     <div class="modal-dialog">
                     <div class="modal-content">
                         <div class="modal-header">
@@ -39,11 +49,11 @@
                             <div class="mb-3">
                                 <form action="/management/modifyUser" method="post">
                                     <label for="modifyMatr" class="form-label">Nueva Matrícula</label>
-                                    <input type="text" class="form-control" id="modifyMatr" name="modfMatr" value="<%=usersDB[i].matricula%>" autocomplete="off">
+                                    <input type="text" class="form-control" id="modifyMatr" name="modfMatr" autocomplete="off">
                                     <label for="modifyName" class="form-label">Nuevo Nombre</label>
-                                    <input type="text" class="form-control" id="modifyName" name="modfName" value="<%=usersDB[i].name%>" autocomplete="off">
+                                    <input type="text" class="form-control" id="modifyName" name="modfName" autocomplete="off">
                                     <label for="modifyRole" class="form-label">Nuevo Rol</label>
-                                    <input type="text" class="form-control" id="modifyRole" name="modfRole" value="<%=usersDB[i].role%>" autocomplete="off">
+                                    <input type="text" class="form-control" id="modifyRole" name="modfRole" autocomplete="off">
                             </div>
                         </div>
                         <div class="modal-footer">
@@ -65,6 +75,18 @@
         <input type="text" name="newUserRole" placeholder="Rol" autocomplete="off" required>
         <button type="submit">+</button>
     </form>
+
+    <!-- Script that runs once the page is ready | Modal -->
+    <script>
+        $(document).ready(function(){
+            $(".update").click(function(){
+                $(document).$(db)
+                var id = $(this).val();
+                $("#modifyMatr").val(id);
+                $("#myModal").modal('show');
+            });
+        });
+    </script>
 
     <!-- Bootstrap Bundle with Popper -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/js/bootstrap.bundle.min.js" integrity="sha384-b5kHyXgcpbZJO/tY9Ul7kGkf1S0CWuKcCD38l8YkeH8z8QjE0GmW1gYU5S9FOnJ0" crossorigin="anonymous"></script>

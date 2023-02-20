@@ -49,7 +49,7 @@ router.post('/modifyUser', function(req, res){
 
 router.post('/deleteUser', function(req, res){
 
-  let idToDelete= req.body['deleteUserCheckbox'];
+  let idToDelete= req.body['deleteUserButton'];
   let sql = `DELETE FROM users WHERE id=${idToDelete}`;
 
   connection.query(sql, err=>{
