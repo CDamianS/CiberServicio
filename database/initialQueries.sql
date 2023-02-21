@@ -1,0 +1,2 @@
+INSERT INTO users (matricula, name, role) VALUES ('A01656583', 'Diego Jacobo Martínez', 'admin');
+INSERT INTO users (matricula, name, role) VALUES ('A01656277', 'Carlos Damián Suárez Bernal', 'admin');

@@ -16,12 +16,15 @@ CREATE TABLE juegos (
 );
 
 CREATE TABLE sanciones (
-    id INTEGER AUTO_INCREMENT NOT NULL,
+    idSancion INTEGER AUTO_INCREMENT NOT NULL,
+    cause VARCHAR(255),
     idMatricula VARCHAR(20) NOT NULL FOREIGN KEY (users/matricula),
+    PRIMARY KEY (idSancion)
 );
 
 CREATE TABLE log (
     id INTEGER AUTO_INCREMENT NOT NULL,
     actionPerformed VARCHAR(255),
+    userPerformed VARCHAR(255),
     PRIMARY KEY (id)
 );

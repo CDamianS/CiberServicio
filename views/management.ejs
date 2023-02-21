@@ -22,50 +22,73 @@
     
     <!-- Despliege de usuarios -->
     <div class="box">
-        <% for(var i=0;i<usersDB.length;i++) { %>
-            <div class="usersList">
-                
-                <!-- Manipulacion de usuarios (Borrar) -->
-                <form class="deleteUserForm" action="/management/deleteUser" method="post">
-                    <button type="submit" name="deleteUserButton" value="<%=usersDB[i].id %>" class="btn btn-primary">Borrar</button>
-                </form>
-                
-                <!-- Registros de usuarios -->
-                <p> <%=usersDB[i].id %> | <%=usersDB[i].name %> | <%=usersDB[i].matricula %> | <%=usersDB[i].role %> </p>
-                
-                <!-- Manipulacion de usuarios (Modificar) -->
-                <!-- Button trigger modal !!! El modal es una ventana popup -->
-                <button type="submit" class="btn btn-success update"   value="<%=usersDB[i].id %>"  >Update</button>
-                
-                <!-- Modal -->
-                <div class="modal fade" id="myModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" role="dialog">
-                    <div class="modal-dialog">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalLabel">Modificar Usuario</h5>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                        </div>
-                        <div class="modal-body">
-                            <div class="mb-3">
-                                <form action="/management/modifyUser" method="post">
-                                    <label for="modifyMatr" class="form-label">Nueva Matrícula</label>
-                                    <input type="text" class="form-control" id="modifyMatr" name="modfMatr" autocomplete="off">
-                                    <label for="modifyName" class="form-label">Nuevo Nombre</label>
-                                    <input type="text" class="form-control" id="modifyName" name="modfName" autocomplete="off">
-                                    <label for="modifyRole" class="form-label">Nuevo Rol</label>
-                                    <input type="text" class="form-control" id="modifyRole" name="modfRole" autocomplete="off">
-                            </div>
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-                            <button type="submit" class="btn btn-primary">Aceptar</button>
+        <div class="usersList">
+            <table id="dtDynamicVerticalScrollExample" class="table table-striped table-bordered table-sm" cellspacing="0"
+            width="100%">
+            <thead>
+                <tr>
+                <th class="th-sm">Id
+                </th>
+                <th class="th-sm">Matrícula
+                </th>
+                <th class="th-sm">Nombre Completo
+                </th>
+                <th class="th-sm">Rol
+                </th>
+                <th class="th-sm">
+                </th>
+                <th class="th-sm">
+                </th>
+                </tr>
+            </thead>
+            <tbody>
+                <% for(var i=0;i<usersDB.length;i++) { %>
+                    <tr>
+                    <td><%=usersDB[i].id %></td>
+                    <td><%=usersDB[i].matricula %></td>
+                    <td><%=usersDB[i].name %></td>
+                    <td><%=usersDB[i].role %></td>
+                    <td>
+                        <!-- Manipulacion de usuarios (Borrar) -->
+                        <form class="deleteUserForm" action="/management/deleteUser" method="post">
+                            <button type="submit" name="deleteUserButton" value="<%=usersDB[i].id %>" class="btn btn-primary">Borrar</button>
                         </form>
-                        </div>
-                    </div>
-                    </div>
-                </div>
-            </div>
-        <% } %>
+                    </td>
+                    <td>
+                        <!-- Manipulacion de usuarios (Modificar) -->
+                        <!-- Button trigger modal !!! El modal es una ventana popup -->
+                        <button type="submit" class="btn btn-success update"   value="<%=usersDB[i].id %>"  >Update</button>
+            
+                        <!-- Modal -->
+                        <div class="modal fade" id="myModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" role="dialog">
+                            <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="exampleModalLabel">Modificar Usuario</h5>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                </div>
+                            <div class="modal-body">
+                                <div class="mb-3">
+                                    <form action="/management/modifyUser" method="post">
+                                        <label for="modifyMatr" class="form-label">Nueva Matrícula</label>
+                                        <input type="text" class="form-control" id="modifyMatr" name="modfMatr" autocomplete="off">
+                                        <label for="modifyName" class="form-label">Nuevo Nombre</label>
+                                        <input type="text" class="form-control" id="modifyName" name="modfName" autocomplete="off">
+                                        <label for="modifyRole" class="form-label">Nuevo Rol</label>
+                                        <input type="text" class="form-control" id="modifyRole" name="modfRole" autocomplete="off">
+                                </div>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                                <button type="submit" class="btn btn-primary">Aceptar</button>
+                            </div>
+                        </form>
+                    </td>
+                    </tr>
+                <% } %>
+            </tbody>
+            </table>
+        </div>
     </div>
 
     <!-- Manipulacion de usuarios (Anadir) -->
@@ -80,9 +103,13 @@
     <script>
         $(document).ready(function(){
             $(".update").click(function(){
-                $(document).$(db)
-                var id = $(this).val();
-                $("#modifyMatr").val(id);
+                let idModal = $(this).val();
+
+                let matriculaModal = '';
+                let nameModal = '';
+                let roleModal = ''; 
+
+                $("#modifyMatr").val(idModal);
                 $("#myModal").modal('show');
             });
         });
