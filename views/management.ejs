@@ -45,9 +45,9 @@
                 <% for(var i=0;i<usersDB.length;i++) { %>
                     <tr>
                     <td><%=usersDB[i].id %></td>
-                    <td><%=usersDB[i].matricula %></td>
-                    <td><%=usersDB[i].name %></td>
-                    <td><%=usersDB[i].role %></td>
+                    <td id="tdMatr<%=usersDB[i].id %>"><%=usersDB[i].matricula %></td>
+                    <td id="tdName<%=usersDB[i].id %>"><%=usersDB[i].name %></td>
+                    <td id="tdRole<%=usersDB[i].id %>"><%=usersDB[i].role %></td>
                     <td>
                         <!-- Manipulacion de usuarios (Borrar) -->
                         <form class="deleteUserForm" action="/management/deleteUser" method="post">
@@ -103,13 +103,19 @@
     <script>
         $(document).ready(function(){
             $(".update").click(function(){
-                let idModal = $(this).val();
+                let idTd = $(this).val();
 
-                let matriculaModal = '';
-                let nameModal = '';
-                let roleModal = ''; 
+                let matriculaTdId = '#tdMatr' + idTd;
+                let nameTdId = '#tdName' + idTd;
+                let roleTdId = '#tdRole' + idTd; 
 
-                $("#modifyMatr").val(idModal);
+                let matriculaModal = $(matriculaTdId).text();
+                let nameModal = $(nameTdId).text();
+                let roleModal = $(roleTdId).text();
+
+                $("#modifyMatr").val(matriculaModal);
+                $("#modifyName").val(nameModal);
+                $("#modifyRole").val(roleModal);
                 $("#myModal").modal('show');
             });
         });
