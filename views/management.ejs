@@ -1,128 +1,111 @@
 <%- include ("layouts/header") %>
-<!DOCTYPE html>
-<html lang="es">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-    <!-- Bootstrap CSS -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous">
-
-    <!-- No se que cosa del Modal pero se necesita -->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
-
-    <title>Management</title>
-</head>
-<body>
+<!-- Comieza Seccion de usuarios -->
     
-    <!-- Comieza Seccion de usuarios -->
-    
-    <h1>Usuarios registrados: </h1>
-    
-    <!-- Despliege de usuarios -->
-    <div class="box">
-        <div class="usersList">
-            <table id="dtDynamicVerticalScrollExample" class="table table-striped table-bordered table-sm" cellspacing="0"
-            width="100%">
-            <thead>
+<h1>Administración de usuarios: </h1>
+
+<!-- Despliege de usuarios -->
+<div class="box">
+    <div class="usersList">
+        <table id="dtDynamicVerticalScrollExample" class="table table-striped table-bordered table-sm" cellspacing="0"
+        width="100%">
+        <thead>
+            <tr>
+            <th class="th-sm">Id
+            </th>
+            <th class="th-sm">Matrícula
+            </th>
+            <th class="th-sm">Nombre Completo
+            </th>
+            <th class="th-sm">Rol
+            </th>
+            <th class="th-sm">
+            </th>
+            <th class="th-sm">
+            </th>
+            </tr>
+        </thead>
+        <tbody>
+            <% for(var i=0;i<usersDB.length;i++) { %>
                 <tr>
-                <th class="th-sm">Id
-                </th>
-                <th class="th-sm">Matrícula
-                </th>
-                <th class="th-sm">Nombre Completo
-                </th>
-                <th class="th-sm">Rol
-                </th>
-                <th class="th-sm">
-                </th>
-                <th class="th-sm">
-                </th>
+                <td><%=usersDB[i].id %></td>
+                <td id="tdMatr<%=usersDB[i].id %>"><%=usersDB[i].matricula %></td>
+                <td id="tdName<%=usersDB[i].id %>"><%=usersDB[i].name %></td>
+                <td id="tdRole<%=usersDB[i].id %>"><%=usersDB[i].role %></td>
+                <td>
+                    <!-- Manipulacion de usuarios (Borrar) -->
+                    <form class="deleteUserForm" action="/management/deleteUser" method="post">
+                        <button type="submit" name="deleteUserButton" value="<%=usersDB[i].id %>" class="btn btn-danger">Borrar</button>
+                    </form>
+                </td>
+                <td>
+                    <!-- Manipulacion de usuarios (Modificar) -->
+                    <!-- Button trigger modal !!! El modal es una ventana popup -->
+                    <button type="submit" class="btn btn-primary update"   value="<%=usersDB[i].id %>"  >Modificar</button>
+        
+                    <!-- Modal -->
+                    <div class="modal fade" id="myModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" role="dialog">
+                        <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="exampleModalLabel">Modificar Usuario</h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            </div>
+                        <div class="modal-body">
+                            <div class="mb-3">
+                                <form action="/management/modifyUser" method="post">
+                                    <label for="modifyMatr" class="form-label">Nueva Matrícula</label>
+                                    <input type="text" class="form-control" id="modifyMatr" name="modfMatr" autocomplete="off">
+                                    <label for="modifyName" class="form-label">Nuevo Nombre</label>
+                                    <input type="text" class="form-control" id="modifyName" name="modfName" autocomplete="off">
+                                    <label for="modifyRole" class="form-label">Nuevo Rol</label>
+                                    <input type="text" class="form-control" id="modifyRole" name="modfRole" autocomplete="off">
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                            <button type="submit" class="btn btn-primary" id="modifyId" name="modfId">Aceptar</button>
+                        </div>
+                    </form>
+                </td>
                 </tr>
-            </thead>
-            <tbody>
-                <% for(var i=0;i<usersDB.length;i++) { %>
-                    <tr>
-                    <td><%=usersDB[i].id %></td>
-                    <td id="tdMatr<%=usersDB[i].id %>"><%=usersDB[i].matricula %></td>
-                    <td id="tdName<%=usersDB[i].id %>"><%=usersDB[i].name %></td>
-                    <td id="tdRole<%=usersDB[i].id %>"><%=usersDB[i].role %></td>
-                    <td>
-                        <!-- Manipulacion de usuarios (Borrar) -->
-                        <form class="deleteUserForm" action="/management/deleteUser" method="post">
-                            <button type="submit" name="deleteUserButton" value="<%=usersDB[i].id %>" class="btn btn-primary">Borrar</button>
-                        </form>
-                    </td>
-                    <td>
-                        <!-- Manipulacion de usuarios (Modificar) -->
-                        <!-- Button trigger modal !!! El modal es una ventana popup -->
-                        <button type="submit" class="btn btn-success update"   value="<%=usersDB[i].id %>"  >Update</button>
-            
-                        <!-- Modal -->
-                        <div class="modal fade" id="myModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" role="dialog">
-                            <div class="modal-dialog">
-                            <div class="modal-content">
-                                <div class="modal-header">
-                                    <h5 class="modal-title" id="exampleModalLabel">Modificar Usuario</h5>
-                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                </div>
-                            <div class="modal-body">
-                                <div class="mb-3">
-                                    <form action="/management/modifyUser" method="post">
-                                        <label for="modifyMatr" class="form-label">Nueva Matrícula</label>
-                                        <input type="text" class="form-control" id="modifyMatr" name="modfMatr" autocomplete="off">
-                                        <label for="modifyName" class="form-label">Nuevo Nombre</label>
-                                        <input type="text" class="form-control" id="modifyName" name="modfName" autocomplete="off">
-                                        <label for="modifyRole" class="form-label">Nuevo Rol</label>
-                                        <input type="text" class="form-control" id="modifyRole" name="modfRole" autocomplete="off">
-                                </div>
-                            </div>
-                            <div class="modal-footer">
-                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-                                <button type="submit" class="btn btn-primary">Aceptar</button>
-                            </div>
-                        </form>
-                    </td>
-                    </tr>
-                <% } %>
-            </tbody>
-            </table>
-        </div>
+            <% } %>
+        </tbody>
+        </table>
     </div>
+</div>
 
-    <!-- Manipulacion de usuarios (Anadir) -->
-    <form class="userForm" action="/management/addUser" method="post">
-        <input type="text" name="newUserMatr" placeholder="Matrícula" autocomplete="off" required>
-        <input type="text" name="newUserName" placeholder="Nombre Completo" autocomplete="off" required>
-        <input type="text" name="newUserRole" placeholder="Rol" autocomplete="off" required>
-        <button type="submit">+</button>
-    </form>
+<!-- Manipulacion de usuarios (Anadir) -->
+<form class="userForm" action="/management/addUser" method="post">
+    <input type="text" name="newUserMatr" placeholder="Matrícula" autocomplete="off" required>
+    <input type="text" name="newUserName" placeholder="Nombre Completo" autocomplete="off" required>
+    <input type="text" name="newUserRole" placeholder="Rol" autocomplete="off" required>
+    <button type="submit" class="btn btn-success">Añadir</button>
+</form>
 
-    <!-- Script that runs once the page is ready | Modal -->
-    <script>
-        $(document).ready(function(){
-            $(".update").click(function(){
-                let idTd = $(this).val();
+<!-- Script that runs once the page is ready | Modal -->
+<script>
+    $(document).ready(function(){
+        $(".update").click(function(){
+            let idTd = $(this).val();
 
-                let matriculaTdId = '#tdMatr' + idTd;
-                let nameTdId = '#tdName' + idTd;
-                let roleTdId = '#tdRole' + idTd; 
+            let matriculaTdId = '#tdMatr' + idTd;
+            let nameTdId = '#tdName' + idTd;
+            let roleTdId = '#tdRole' + idTd; 
 
-                let matriculaModal = $(matriculaTdId).text();
-                let nameModal = $(nameTdId).text();
-                let roleModal = $(roleTdId).text();
+            let matriculaModal = $(matriculaTdId).text();
+            let nameModal = $(nameTdId).text();
+            let roleModal = $(roleTdId).text();
 
-                $("#modifyMatr").val(matriculaModal);
-                $("#modifyName").val(nameModal);
-                $("#modifyRole").val(roleModal);
-                $("#myModal").modal('show');
-            });
+            $("#modifyId").val(idTd);
+            $("#modifyMatr").val(matriculaModal);
+            $("#modifyName").val(nameModal);
+            $("#modifyRole").val(roleModal);
+            $("#myModal").modal('show');
         });
-    </script>
+    });
+</script>
 
-    <!-- Bootstrap Bundle with Popper -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/js/bootstrap.bundle.min.js" integrity="sha384-b5kHyXgcpbZJO/tY9Ul7kGkf1S0CWuKcCD38l8YkeH8z8QjE0GmW1gYU5S9FOnJ0" crossorigin="anonymous"></script>
+<!-- Bootstrap Bundle with Popper -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/js/bootstrap.bundle.min.js" integrity="sha384-b5kHyXgcpbZJO/tY9Ul7kGkf1S0CWuKcCD38l8YkeH8z8QjE0GmW1gYU5S9FOnJ0" crossorigin="anonymous"></script>
 
-</body>
-</html>
+<%- include ("layouts/footer") %>

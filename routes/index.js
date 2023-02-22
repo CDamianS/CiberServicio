@@ -16,4 +16,9 @@ router.get('/rentar', function(req, res, next) {
   res.render('rentar', { title: 'Rentar' });
 });
 
+/* GET page (login.ejs). */
+router.get('/login', function(req, res, next) {
+  res.render('login', { title: 'Login' });
+});
+
 module.exports = router;

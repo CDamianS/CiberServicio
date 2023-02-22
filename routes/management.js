@@ -32,14 +32,14 @@ router.post('/addUser', function(req, res){
 
 router.post('/modifyUser', function(req, res){
 
-  let idToModf = req.body['doModf'];
+  let idToModf = req.body['modfId'];
   let matr = req.body['modfMatr'];
   let name = req.body['modfName'];
   let role = req.body['modfRole'];
   let sql = `UPDATE users SET matricula='${matr}', name='${name}', role='${role}' WHERE id=${idToModf}`;
   connection.query(sql, err=>{
     if(!err){
-      console.log('Successfully added user')
+      console.log('Successfully modified user')
       res.redirect('/management')
     }
     else
