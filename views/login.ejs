@@ -1,3 +1,30 @@
 <%- include ("layouts/header") %>
 
+<div class="container mt-5">
+    <h1>Login</h1>
+  
+    <div class="row">
+      <div class="col-sm-8">
+        <div class="card">
+          <div class="card-body">
+  
+            <!-- Makes POST request to /login route -->
+            <form action="/login/password" method="POST">
+              <div class="form-group">
+                <label for="username">Usuario</label>
+                <input type="text" class="form-control" name="username">
+              </div>
+              <div class="form-group">
+                <label for="password">Contraseña</label>
+                <input type="password" class="form-control" name="password">
+              </div>
+              <button type="submit" class="btn btn-dark">Acceder</button>
+            </form>
+  
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
 <%- include ("layouts/footer") %>
