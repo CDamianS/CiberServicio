@@ -5,7 +5,8 @@ CREATE TABLE users (
     id INTEGER AUTO_INCREMENT NOT NULL,
     matricula VARCHAR(20) NOT NULL,
     name VARCHAR(100) NOT NULL,
-    role VARCHAR(20) NOT NULL,
+    password(100)
+    role VARCHAR(100) NOT NULL,
     PRIMARY KEY (id)
 );
 

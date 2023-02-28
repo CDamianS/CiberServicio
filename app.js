@@ -1,17 +1,17 @@
-/* Check for Env Variables */
-if (process.env.NODE_ENV !== 'production') {
-  require('dotenv').config();
-}
-
 const createError = require('http-errors');
 const express = require('express');
 const path = require('path');
 const cookieParser = require('cookie-parser');
 const logger = require('morgan');
 const bodyParser = require('body-parser');
+const session = require('express-session');
+const passport = require('passport');
+const LocalStrategy = require('passport-local');
 
+const connection = require('./database/connection');
 const indexRouter = require('./routes/index');
 const managementRouter = require('./routes/management');
+const loginRouter = require('./routes/login');
 
 const app = express();
 
@@ -29,9 +29,46 @@ app.use(bodyParser.urlencoded({ extended: true}));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
+// Session Passport
+app.use(session({
+  secret: 'v4q478vb(&(&"$¨NUvnjdrbvÍ#BVNJE¨r',
+  resave: false,
+  saveUninitialized: true
+}));
+
+app.use(passport.initialize());
+app.use(passport.session());
+
+passport.use(new LocalStrategy(function verify(username, password, cb) {
+  
+  let sql = `SELECT id, matricula, role, password FROM users WHERE matricula = '${username}' AND password = '${password}';`;
+  connection.query(sql, function(err, data){
+    if (err) { return cb(err); }
+    if (!data) { return cb(null, false, { message: 'Incorrect username or password.' }); }
+    else {
+      if (data[0].matricula == username && data[0].password == password) {
+        return cb(null, data);
+      }
+    };
+  });
+}));
+
+passport.serializeUser(function(user, cb) {
+  process.nextTick(function() {
+    cb(null, { id: user.id, username: user.username });
+  });
+});
+
+passport.deserializeUser(function(user, cb) {
+  process.nextTick(function() {
+    return cb(null, user);
+  });
+});
+
 // Script de rutas predefinidas
 app.use('/', indexRouter);
 app.use('/management', managementRouter);
+app.use('/login', loginRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

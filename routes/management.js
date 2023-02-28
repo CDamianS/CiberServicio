@@ -1,23 +1,25 @@
 var express = require('express');
 var router = express.Router();
 var connection = require("../database/connection");
+const session = require('express-session');
+const passport = require('passport');
+var ensureLogIn = require('connect-ensure-login').ensureLoggedIn;
+var ensureLoggedIn = ensureLogIn();
 
-/* GET page (login.ejs). */
-router.get('/', function(req, res, next) {
+/* GET page (management.ejs). */
+router.get('/', ensureLoggedIn, function(req, res, next) {
 
   /* Retrieve of DB data */
   connection.query("SELECT * FROM users", function(errDB, data){
 
-      /* Show data in console */
-      //console.log(data);
-
-      /* Rendered page with queried data*/
-      res.render('management', { title: 'Management', usersDB: data });
+    /* Rendered page with queried data*/
+    res.render('management', { title: 'Management', usersDB: data });
         
-    });
   });
-  
-router.post('/addUser', function(req, res){
+});
+
+/* POST page (management.ejs management/addUser). */
+router.post('/addUser', ensureLoggedIn, function(req, res){
 
   let sql = `INSERT INTO users (matricula, name, role) VALUES ('${req.body.newUserMatr}', '${req.body.newUserName}', '${req.body.newUserRole}')`;
   connection.query(sql, err=>{
@@ -30,7 +32,8 @@ router.post('/addUser', function(req, res){
   });
 });
 
-router.post('/modifyUser', function(req, res){
+/* POST page (management.ejs management/modifyUser). */
+router.post('/modifyUser', ensureLoggedIn, function(req, res){
 
   let idToModf = req.body['modfId'];
   let matr = req.body['modfMatr'];
@@ -47,7 +50,8 @@ router.post('/modifyUser', function(req, res){
   });
 });
 
-router.post('/deleteUser', function(req, res){
+/* POST page (management.ejs management/deleteUser). */
+router.post('/deleteUser', ensureLoggedIn, function(req, res){
 
   let idToDelete= req.body['deleteUserButton'];
   let sql = `DELETE FROM users WHERE id=${idToDelete}`;
