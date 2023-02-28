@@ -44,7 +44,10 @@ passport.use(new LocalStrategy(function verify(username, password, cb) {
   let sql = `SELECT id, matricula, role, password FROM users WHERE matricula = '${username}' AND password = '${password}';`;
   connection.query(sql, function(err, data){
     if (err) { return cb(err); }
-    if (!data) { return cb(null, false, { message: 'Incorrect username or password.' }); }
+    if (!data.length) {
+      console.log('Acceso Denegado'); 
+      return cb(null, false, { message: 'Incorrect username or password.' });
+    }
     else {
       if (data[0].matricula == username && data[0].password == password) {
         return cb(null, data);
