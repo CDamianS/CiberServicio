@@ -21,8 +21,11 @@ router.get('/', ensureLoggedIn, function(req, res, next) {
 /* POST page (management.ejs management/addUser). */
 router.post('/addUser', ensureLoggedIn, function(req, res){
 
-  let sql = `INSERT INTO users (matricula, name, role) VALUES ('${req.body.newUserMatr}', '${req.body.newUserName}', '${req.body.newUserRole}')`;
-  connection.query(sql, err=>{
+  let matr = req.body.newUserMatr;
+  let name = req.body.newUserName;
+  let role = req.body.newUserRole;
+  let sql = 'INSERT INTO users (matricula, name, role) VALUES (?, ?, ?)';
+  connection.query(sql, [matr, name, role], err=>{
     if(!err){
     console.log('Successfully added user')
     res.redirect('/management')
@@ -39,8 +42,8 @@ router.post('/modifyUser', ensureLoggedIn, function(req, res){
   let matr = req.body['modfMatr'];
   let name = req.body['modfName'];
   let role = req.body['modfRole'];
-  let sql = `UPDATE users SET matricula='${matr}', name='${name}', role='${role}' WHERE id=${idToModf}`;
-  connection.query(sql, err=>{
+  let sql =' UPDATE users SET matricula=?, name=?, role=? WHERE id=?';
+  connection.query(sql, [matr, name, role, idToModf], err=>{
     if(!err){
       console.log('Successfully modified user')
       res.redirect('/management')
@@ -54,9 +57,9 @@ router.post('/modifyUser', ensureLoggedIn, function(req, res){
 router.post('/deleteUser', ensureLoggedIn, function(req, res){
 
   let idToDelete= req.body['deleteUserButton'];
-  let sql = `DELETE FROM users WHERE id=${idToDelete}`;
+  let sql = 'DELETE FROM users WHERE id = ?';
 
-  connection.query(sql, err=>{
+  connection.query(sql, idToDelete, err=>{
     if(!err){
       console.log('Successfully deleted user')
       res.redirect('/management')

@@ -3,7 +3,7 @@ var router = express.Router();
 
 /* GET home page (index.ejs). */
 router.get('/', function(req, res, next) {
-  res.render('index', { title: 'Cyber' });
+  res.render('index', { title: 'Cyber Homepage' });
 });
 
 /* GET page (reglamento.ejs). */
