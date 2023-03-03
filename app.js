@@ -7,6 +7,7 @@ const bodyParser = require('body-parser');
 const session = require('express-session');
 const passport = require('passport');
 const LocalStrategy = require('passport-local');
+const encrypt = require('bcrypt');
 
 const connection = require('./database/connection');
 const indexRouter = require('./routes/index');
@@ -42,10 +43,12 @@ app.use(session({
 app.use(passport.initialize());
 app.use(passport.session());
 
-passport.use(new LocalStrategy(function verify(username, password, cb) {
+// Passport strategy - Como se verifican las credenciales
+passport.use(new LocalStrategy(async function verify(req, username, password, cb) {
   
+  let hashedPassword = await encrypt.hash(password, 10);
   let sql = 'SELECT id, matricula, role, password FROM users WHERE matricula = ? AND password = ?';
-  connection.query(sql, [username, password], function(err, data){
+  connection.query(sql, [username, hashedPassword], function(err, data){
     if (err) { return cb(err); }
     if (!data.length) {
       console.log('Acceso Denegado'); 

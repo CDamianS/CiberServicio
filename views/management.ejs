@@ -16,37 +16,36 @@
   <title>Management</title>
 </head>
 <body>
-  <nav class="navbar navbar-expand-lg  navbar-dark" style="background-color: #020000;">
-    <div class="logo-image">
-      <img src="https://thumb.bibliocad.com/images/content/00080000/1000/81127.gif" width="40" height="40" class="img-fluid">
-    </div>
-    <a class="navbar-brand" href="/">| Cyber Tec</a>
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
-      aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="collapse navbar-collapse" id="navbarNav">
-      <ul class="navbar-nav">
-        <li class="nav-item active">
-          <a class="nav-link" href="/">Home</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="reglamento">Reglamento</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="rentar">Rentar</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="login">Login</a>
-        </li>
-      </ul>
-    </div>
-  </nav>
-<!-- Comieza Seccion de usuarios -->
+<nav class="navbar navbar-expand-lg  navbar-dark" style="background-color: #020000;">
+  <div class="logo-image">
+    <img src="https://thumb.bibliocad.com/images/content/00080000/1000/81127.gif" width="40" height="40" class="img-fluid">
+  </div>
+  <a class="navbar-brand" href="/">| Cyber Tec</a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
+    aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <div class="collapse navbar-collapse" id="navbarNav">
+    <ul class="navbar-nav">
+      <li class="nav-item active">
+        <a class="nav-link" href="/">Home</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="reglamento">Reglamento</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="rentar">Rentar</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="login">Login</a>
+      </li>
+    </ul>
+  </div>
+</nav>
+<!-- Comieza Seccion de Usuarios -->
     
 <h1>Administración de usuarios: </h1>
 
-<!-- Despliege de usuarios -->
 <div class="box">
     <div class="usersList">
         <table id="dtDynamicVerticalScrollExample" class="table table-striped table-bordered table-sm" cellspacing="0"
@@ -122,8 +121,21 @@
     <input type="text" name="newUserMatr" placeholder="Matrícula" autocomplete="off" required>
     <input type="text" name="newUserName" placeholder="Nombre Completo" autocomplete="off" required>
     <input type="text" name="newUserRole" placeholder="Rol" autocomplete="off" required>
+    <input type="text" name="newUserPass" placeholder="Contraseña" autocomplete="off" required>
     <button type="submit" class="btn btn-success">Añadir</button>
 </form>
+
+<!-- Comieza Seccion de Sanciones -->
+
+
+
+<!-- Comieza Seccion de Juegos -->
+
+
+
+<!-- Comieza Seccion de Logs -->
+
+
 
 <!-- Boton de Logout -->
 <form action="/login/logout" method="post">

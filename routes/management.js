@@ -1,10 +1,11 @@
 var express = require('express');
 var router = express.Router();
 var connection = require("../database/connection");
-const session = require('express-session');
-const passport = require('passport');
+var session = require('express-session');
+var passport = require('passport');
 var ensureLogIn = require('connect-ensure-login').ensureLoggedIn;
 var ensureLoggedIn = ensureLogIn();
+var encrypt = require('bcrypt');
 
 /* GET page (management.ejs). */
 router.get('/', ensureLoggedIn, function(req, res, next) {
@@ -19,13 +20,15 @@ router.get('/', ensureLoggedIn, function(req, res, next) {
 });
 
 /* POST page (management.ejs management/addUser). */
-router.post('/addUser', ensureLoggedIn, function(req, res){
+router.post('/addUser', ensureLoggedIn, async function(req, res){
 
   let matr = req.body.newUserMatr;
   let name = req.body.newUserName;
   let role = req.body.newUserRole;
-  let sql = 'INSERT INTO users (matricula, name, role) VALUES (?, ?, ?)';
-  connection.query(sql, [matr, name, role], err=>{
+  let hashedPassword = await bcrypt.hash(req.body.pass, 10);
+
+  let sql = 'INSERT INTO users (matricula, name, password, role) VALUES (?, ?, ?, ?)';
+  connection.query(sql, [matr, name, hashedPassword, role], err=>{
     if(!err){
     console.log('Successfully added user')
     res.redirect('/management')
