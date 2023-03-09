@@ -7,7 +7,7 @@ const bodyParser = require('body-parser');
 const session = require('express-session');
 const passport = require('passport');
 const LocalStrategy = require('passport-local');
-const encrypt = require('bcrypt');
+const bcrypt = require('bcrypt');
 
 const connection = require('./database/connection');
 const indexRouter = require('./routes/index');
@@ -44,18 +44,24 @@ app.use(passport.initialize());
 app.use(passport.session());
 
 // Passport strategy - Como se verifican las credenciales
-passport.use(new LocalStrategy(async function verify(req, username, password, cb) {
+passport.use(new LocalStrategy(function verify(username, password, cb) {
   
-  let hashedPassword = await encrypt.hash(password, 10);
-  let sql = 'SELECT id, matricula, role, password FROM users WHERE matricula = ? AND password = ?';
-  connection.query(sql, [username, hashedPassword], function(err, data){
-    if (err) { return cb(err); }
+  let sql = 'SELECT id, matricula, password, hash, role FROM users WHERE matricula = ?';
+  connection.query(sql, [username], async function(err, data){
+    if (err) { 
+      return cb(err); 
+    }
     if (!data.length) {
       console.log('Acceso Denegado'); 
       return cb(null, false, { message: 'Incorrect username or password.' });
     }
     else {
-      if (data[0].matricula == username && data[0].password == password) {
+
+      let salt = await bcrypt.genSaltSync(10);
+      console.log("salt: " + salt);
+      let hashedPassword = await bcrypt.hashSync(password, salt);
+      console.log("password: " + hashedPassword);
+      if (await bcrypt.compareSync(password, data[0].hash)) {
         return cb(null, data);
       }
     };
