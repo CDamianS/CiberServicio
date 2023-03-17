@@ -8,6 +8,8 @@ const session = require('express-session');
 const passport = require('passport');
 const LocalStrategy = require('passport-local');
 const bcrypt = require('bcrypt');
+// Delete on deployment | Required only during development
+require('dotenv').config()
 
 const connection = require('./database/connection');
 const indexRouter = require('./routes/index');
@@ -32,7 +34,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 // Session Passport
 app.use(session({
-  secret: 'v4q478vb(&(&"$¨NUvnjdrbvÍ#BVNJE¨r',
+  secret: process.env.PASSPORT_SECRET_SIRNFD,
   resave: false,
   saveUninitialized: true,
   cookie: {
@@ -56,12 +58,7 @@ passport.use(new LocalStrategy(function verify(username, password, cb) {
       return cb(null, false, { message: 'Incorrect username or password.' });
     }
     else {
-
-      let salt = await bcrypt.genSaltSync(10);
-      console.log("salt: " + salt);
-      let hashedPassword = await bcrypt.hashSync(password, salt);
-      console.log("password: " + hashedPassword);
-      if (await bcrypt.compareSync(password, data[0].hash)) {
+      if (await bcrypt.compare(password, data[0].password)) {
         return cb(null, data);
       }
     };
