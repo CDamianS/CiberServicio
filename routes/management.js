@@ -59,8 +59,8 @@ router.post('/addUser', ensureLoggedIn, async function(req, res){
   let salt = bcrypt.genSaltSync(10);
   let hashedPassword = await bcrypt.hashSync(req.body.newUserPass, salt);
 
-  let sql = 'INSERT INTO users (matricula, name, password, hash, role) VALUES (?, ?, ?, ?, ?)';
-  connection.query(sql, [matr, cipherName, hashedPassword, hash, role], err=>{
+  let sql = 'INSERT INTO users (matricula, name, password, role) VALUES (?, ?, ?, ?)';
+  connection.query(sql, [matr, cipherName, hashedPassword, role], err=>{
     if(!err){
     console.log('Successfully added user')
     res.redirect('/management')
@@ -71,7 +71,7 @@ router.post('/addUser', ensureLoggedIn, async function(req, res){
 });
 
 /* POST page (management.ejs management/modifyUser). */
-router.post('/modifyUser', ensureLoggedIn,function(req, res){
+router.post('/modifyUser', ensureLoggedIn, async function (req, res) {
 
   let idToModf = req.body['modfId'];
   let matr = req.body['modfMatr'];
@@ -79,26 +79,18 @@ router.post('/modifyUser', ensureLoggedIn,function(req, res){
   let cipherName = encrypt(name);
   let role = req.body['modfRole'];
   let pass = req.body['modfPass'];
+  let salt = bcrypt.genSaltSync(10);
+  let hashedPassword = await bcrypt.hashSync(pass, salt);
 
-  let sql = 'SELECT hash FROM users WHERE id = ?';
-  connection.query(sql, [idToModf],async function(err, data){
-    if(!err){
+  sql = ' UPDATE users SET matricula=?, name=?, password=?, role=? WHERE id=?';
 
-      let hashedPassword = await bcrypt.hashSync(pass, data[0].hash);
-      sql =' UPDATE users SET matricula=?, name=?, password=?, role=? WHERE id=?';
-
-      connection.query(sql, [matr, cipherName, hashedPassword, role, idToModf], err=>{
-        if(!err){
-          console.log('Successfully modified user')
-          res.redirect('/management')
-        }
-        else
-        console.log(err);
-      });
-
+  connection.query(sql, [matr, cipherName, hashedPassword, role, idToModf], err => {
+    if (!err) {
+      console.log('Successfully modified user')
+      res.redirect('/management')
     }
     else
-    console.log(err);
+      console.log(err);
   });
 });
 
