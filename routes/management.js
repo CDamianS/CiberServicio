@@ -7,6 +7,7 @@ var ensureLogIn = require('connect-ensure-login').ensureLoggedIn;
 var ensureLoggedIn = ensureLogIn();
 var bcrypt = require('bcrypt');
 var crypto = require('crypto');
+const Excel = require('exceljs');
 // Dotenv vars for soft encryption
 var algorithm = process.env.ALGORITHM_CRYPTO_IFWIMA; 
 var initVectorString = process.env.CRYPTO_IV_DKIBES; // You can store this into a env file
@@ -35,7 +36,7 @@ function decrypt(text) {
 router.get('/', ensureLoggedIn, function(req, res, next) {
 
   /* Retrieve of DB data */
-  connection.query("SELECT * FROM users", function(err, data){
+  connection.query('SELECT id, matricula, name, role FROM users', function(err, data){
     if (!err) {
       /* Decrypt the names */
       for (var i = 0; i < data.length; i++){
@@ -107,6 +108,46 @@ router.post('/deleteUser', ensureLoggedIn, function(req, res){
     }
     else
     console.log(err);
+  });
+});
+
+/* GET page (management.ejs management/downloadUsers). */
+router.get('/downloadUsers', ensureLoggedIn, (req, res) => {
+  // MySQL query to select table data
+  const sql = 'SELECT id, matricula, name, role FROM users';
+  
+  connection.query(sql, (err, data) => {
+    if (err) throw err;
+    
+    // Excel workbook and worksheet
+    const workbook = new Excel.Workbook();
+    const worksheet = workbook.addWorksheet('Users Data');
+    
+    // Add column headers to worksheet
+    for (var i = 0; i < data.length; i++){
+      data[i].name = decrypt(data[i].name, process.env.NAMES_KEY_HJGLIP)
+    }
+    const columns = Object.keys(data[0]);
+    worksheet.addRow(columns);
+    
+    // Add data rows to worksheet
+    data.forEach(row => {
+      const values = [];
+      columns.forEach(column => {
+        values.push(row[column]);
+      });
+      worksheet.addRow(values);
+    });
+    
+    // Set response headers for Excel file download
+    res.setHeader('Content-Type', 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
+    res.setHeader('Content-Disposition', 'attachment; filename=users_table_data.xlsx');
+    
+    // Write workbook to response
+    workbook.xlsx.write(res)
+      .then(() => {
+        res.end();
+      });
   });
 });
 
