@@ -151,4 +151,152 @@ router.get('/downloadUsers', ensureLoggedIn, (req, res) => {
   });
 });
 
+/* GET page (management.ejs management/downloadClients). */
+router.get('/downloadClients', ensureLoggedIn, (req, res) => {
+  // MySQL query to select table data
+  const sql = 'SELECT * FROM clients';
+  
+  connection.query(sql, (err, data) => {
+    if (err) throw err;
+    
+    // Excel workbook and worksheet
+    const workbook = new Excel.Workbook();
+    const worksheet = workbook.addWorksheet('Logs Data');
+    
+    // Add column headers to worksheet
+    const columns = Object.keys(data[0]);
+    worksheet.addRow(columns);
+    
+    // Add data rows to worksheet
+    data.forEach(row => {
+      const values = [];
+      columns.forEach(column => {
+        values.push(row[column]);
+      });
+      worksheet.addRow(values);
+    });
+    
+    // Set response headers for Excel file download
+    res.setHeader('Content-Type', 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
+    res.setHeader('Content-Disposition', 'attachment; filename=clients_table_data.xlsx');
+    
+    // Write workbook to response
+    workbook.xlsx.write(res)
+      .then(() => {
+        res.end();
+      });
+  });
+});
+
+/* GET page (management.ejs management/downloadGames). */
+router.get('/downloadGames', ensureLoggedIn, (req, res) => {
+  // MySQL query to select table data
+  const sql = 'SELECT * FROM games';
+  
+  connection.query(sql, (err, data) => {
+    if (err) throw err;
+    
+    // Excel workbook and worksheet
+    const workbook = new Excel.Workbook();
+    const worksheet = workbook.addWorksheet('Logs Data');
+    
+    // Add column headers to worksheet
+    const columns = Object.keys(data[0]);
+    worksheet.addRow(columns);
+    
+    // Add data rows to worksheet
+    data.forEach(row => {
+      const values = [];
+      columns.forEach(column => {
+        values.push(row[column]);
+      });
+      worksheet.addRow(values);
+    });
+    
+    // Set response headers for Excel file download
+    res.setHeader('Content-Type', 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
+    res.setHeader('Content-Disposition', 'attachment; filename=games_table_data.xlsx');
+    
+    // Write workbook to response
+    workbook.xlsx.write(res)
+      .then(() => {
+        res.end();
+      });
+  });
+});
+
+/* GET page (management.ejs management/downloadSanctions). */
+router.get('/downloadSanctions', ensureLoggedIn, (req, res) => {
+  // MySQL query to select table data
+  const sql = 'SELECT * FROM sanctions';
+  
+  connection.query(sql, (err, data) => {
+    if (err) throw err;
+    
+    // Excel workbook and worksheet
+    const workbook = new Excel.Workbook();
+    const worksheet = workbook.addWorksheet('Sanctions Data');
+    
+    // Add column headers to worksheet
+    const columns = Object.keys(data[0]);
+    worksheet.addRow(columns);
+    
+    // Add data rows to worksheet
+    data.forEach(row => {
+      const values = [];
+      columns.forEach(column => {
+        values.push(row[column]);
+      });
+      worksheet.addRow(values);
+    });
+    
+    // Set response headers for Excel file download
+    res.setHeader('Content-Type', 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
+    res.setHeader('Content-Disposition', 'attachment; filename=sanctions_table_data.xlsx');
+    
+    // Write workbook to response
+    workbook.xlsx.write(res)
+      .then(() => {
+        res.end();
+      });
+  });
+});
+
+/* GET page (management.ejs management/downloadLogs). */
+router.get('/downloadLogs', ensureLoggedIn, (req, res) => {
+  // MySQL query to select table data
+  const sql = 'SELECT * FROM logs';
+  
+  connection.query(sql, (err, data) => {
+    if (err) throw err;
+    
+    // Excel workbook and worksheet
+    const workbook = new Excel.Workbook();
+    const worksheet = workbook.addWorksheet('Logs Data');
+    
+    // Add column headers to worksheet
+    const columns = Object.keys(data[0]);
+    worksheet.addRow(columns);
+    
+    // Add data rows to worksheet
+    data.forEach(row => {
+      const values = [];
+      columns.forEach(column => {
+        values.push(row[column]);
+      });
+      worksheet.addRow(values);
+    });
+    
+    // Set response headers for Excel file download
+    res.setHeader('Content-Type', 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
+    res.setHeader('Content-Disposition', 'attachment; filename=logs_table_data.xlsx');
+    
+    // Write workbook to response
+    workbook.xlsx.write(res)
+      .then(() => {
+        res.end();
+      });
+  });
+});
+
 module.exports = router;
