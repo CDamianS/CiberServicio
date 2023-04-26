@@ -167,25 +167,25 @@
 
 <!-- Script that runs once the page is ready | Modal -->
 <script>
-    $(document).ready(function(){
-        $(".update").click(function(){
-            let idTd = $(this).val();
+  $(document).ready(function(){
+    $(".update").click(function(){
+      let idTd = $(this).val();
 
-            let matriculaTdId = '#tdMatr' + idTd;
-            let nameTdId = '#tdName' + idTd;
-            let roleTdId = '#tdRole' + idTd; 
+      let matriculaTdId = '#tdMatr' + idTd;
+      let nameTdId = '#tdName' + idTd;
+      let roleTdId = '#tdRole' + idTd; 
 
-            let matriculaModal = $(matriculaTdId).text();
-            let nameModal = $(nameTdId).text();
-            let roleModal = $(roleTdId).text();
+      let matriculaModal = $(matriculaTdId).text();
+      let nameModal = $(nameTdId).text();
+      let roleModal = $(roleTdId).text();
 
-            $("#modifyId").val(idTd);
-            $("#modifyMatr").val(matriculaModal);
-            $("#modifyName").val(nameModal);
-            $("#modifyRole").val(roleModal);
-            $("#myModal").modal('show');
-        });
+      $("#modifyId").val(idTd);
+      $("#modifyMatr").val(matriculaModal);
+      $("#modifyName").val(nameModal);
+      $("#modifyRole").val(roleModal);
+      $("#myModal").modal('show');
     });
+  });
 </script>
 
 <!-- Bootstrap Bundle with Popper -->
