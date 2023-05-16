@@ -1,0 +1,27 @@
+{% load static %}
+{% load template_functions %}
+<header>
+    <div id="nav-container">
+        <div id="nav-overlay"></div>
+        <nav id="nav-fullscreen">
+            <ul>
+                <li><a class="cool-hover" href="{% url 'index' %}">Home</a></li>
+                <li><a class="cool-hover" href="{% url 'regulations' %}">Reglamento</a></li>
+                {% if user.is_authenticated %}
+                <li><a class="cool-hover" href="{% url 'rental' %}">Rentar</a></li>
+                <li><a class="cool-hover" href="{% url 'scholar' %}">Becario</a></li>
+                {% if request.user|has_group:"admin" %}
+                <li><a class="cool-hover" href="{% url 'admin' %}">Admin</a></li>
+                {% endif %}
+                {% else %}
+                <li><a class="cool-hover" href="{% url 'login' %}">Login</a></li>
+                {% endif %}
+            </ul>
+        </nav>
+        <a id="nav-toggle">
+            <span></span>
+            <span></span>
+            <span></span>
+        </a>
+    </div>
+</header>
