@@ -1,4 +1,5 @@
 {% extends 'layout/base.html' %}
+{% load static %}
 
 {% block title %}
     Index
@@ -11,6 +12,161 @@
 {% block content %}
     <h1>Bienvenido a Ciber Tec</h1>
     <p>This is the homepage</p>
+    <img class="cyber_map" src="{% static 'assets/Cyber_Map.png' %}" alt="Cyber Map" usemap="#cyber-games">
+    <map name="cyber-games">
+        <area
+          alt="futbolito1"
+          title="futbolito1"
+          href="#futbolito1"
+          coords="15,125,130,245"
+          shape="rect"
+        />
+        <area
+          alt="futbolito2"
+          title="futbolito2"
+          href="#futbolito2"
+          coords="130,115,260,250"
+          shape="rect"
+        />
+        <area
+          alt="futbolito3"
+          title="futbolito3"
+          href="#futbolito3"
+          coords="265,125,380,245"
+          shape="rect"
+        />
+        <area
+          alt="billar1"
+          title="billar1"
+          href="#billar1"
+          coords="410,116,624,240"
+          shape="rect"
+        />
+        <area
+          alt="hockey1"
+          title="hockey1"
+          href="#hockey1"
+          coords="645,50,765,275"
+          shape="rect"
+        />
+        <area
+          alt="nintendo"
+          title="nintendo"
+          href="#nintendo"
+          coords="775,65,775,105,955,105,955,165,1000,165,1000,0,955,0,955,65"
+          shape="poly"
+        />
+        <area
+          alt="xbox"
+          title="xbox"
+          href="#xbox"
+          coords="873,275,40"
+          shape="circle"
+        />
+        <area
+          alt="xbox"
+          title="xbox"
+          href="#xbox"
+          coords="955,190,1000,360"
+          shape="rect"
+        />
+        <area
+          alt="pingpong1"
+          title="pingpong1"
+          href="#pingpong1"
+          coords="0,385,128,605"
+          shape="rect"
+        />
+        <area
+          alt="hockey2"
+          title="hockey2"
+          href="#hockey2"
+          coords="150,385,275,610"
+          shape="rect"
+        />
+        <area
+          alt="pingpong2"
+          title="pingpong2"
+          href="#pingpong2"
+          coords="300,385,425,605"
+          shape="rect"
+        />
+        <area
+          alt="futbolito4"
+          title="futbolito4"
+          href="#futbolito4"
+          coords="450,412,620,575"
+          shape="rect"
+        />
+        <area
+          alt="billar2"
+          title="billar2"
+          href="#billar2"
+          coords="645,385,786,635"
+          shape="rect"
+        />
+        <area
+          alt="playstation"
+          title="playstation"
+          href="#playstation"
+          coords="810,420,810,520,955,520,955,550,1000,550,1000,385,955,385,955,420"
+          shape="poly"
+        />
+    </map>
+    <div>
+        <div class="popup" id="futbolito1">
+        This is the Futbolito 1.
+        <a class="close" href="#">X</a>
+        </div>
+        <div class="popup" id="futbolito2">
+        This is the Futbolito 2.
+        <a class="close" href="#">X</a>
+        </div>
+        <div class="popup" id="futbolito3">
+        This is the Futbolito 3.
+        <a class="close" href="#">X</a>
+        </div>
+        <div class="popup" id="billar1">
+        This is the Billar 1.
+        <a class="close" href="#">X</a>
+        </div>
+        <div class="popup" id="hockey1">
+        This is the Hockey 1.
+        <a class="close" href="#">X</a>
+        </div>
+        <div class="popup" id="nintendo">
+        This is the Nintendo.
+        <a class="close" href="#">X</a>
+        </div>
+        <div class="popup" id="xbox">
+        This is the Xbox.
+        <a class="close" href="#">X</a>
+        </div>
+        <div class="popup" id="pingpong1">
+        This is the Ping pong 1.
+        <a class="close" href="#">X</a>
+        </div>
+        <div class="popup" id="hockey2">
+        This is the Hockey 2.
+        <a class="close" href="#">X</a>
+        </div>
+        <div class="popup" id="pingpong2">
+        This is the Ping pong 2.
+        <a class="close" href="#">X</a>
+        </div>
+        <div class="popup" id="futbolito4">
+        This is the Futbolito 4.
+        <a class="close" href="#">X</a>
+        </div>
+        <div class="popup" id="billar2">
+        This is the Billar 2.
+        <a class="close" href="#">X</a>
+        </div>
+        <div class="popup" id="playstation">
+        This is the Playstation.
+        <a class="close" href="#">X</a>
+        </div>
+    </div>
 {% endblock %}
 
 {% block js %}

@@ -7,7 +7,7 @@ class Index(View):
     
 class Regulations(View):
     def get(self, request):
-        return render(request, 'main/regulation.html')
+        return render(request, 'main/regulations.html')
     
 class Login(View):
     def get(self, request):

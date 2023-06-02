@@ -1,10 +1,3 @@
-$toggle-size: 3rem
-$bar-size: $toggle-size / 8
-$bar-space: ($toggle-size - ($bar-size * 5)) / 2
-
-$bar2-top: $bar-size + $bar-space
-$bar3-top: $bar2-top * 2
-
 #nav-container
     margin-left: auto
     position: relative
@@ -20,7 +13,7 @@ $bar3-top: $bar2-top * 2
         background-color: white
         width: 100%
         height: $bar-size
-        border-radius: $bar-size / 4
+        border-radius: calc($bar-size / 4)
         display: block
         position: absolute
         left: 0
@@ -41,7 +34,7 @@ $bar3-top: $bar2-top * 2
 
 #nav-toggle.open span:nth-child(1)
     transform: rotate(45deg)
-    top: -($toggle-size / 32) + $bar-size
+    top: calc(($toggle-size / 32) * (-1) + $bar-size)
     left: $bar-size
 
 #nav-toggle.open span:nth-child(2)
@@ -50,13 +43,13 @@ $bar3-top: $bar2-top * 2
 
 #nav-toggle.open span:nth-child(3)
     transform: rotate(-45deg)
-    top: $bar3-top + ($toggle-size / 32) + $bar-size
+    top: calc($bar3-top + ($toggle-size / 32) + $bar-size)
     left: $bar-size
 
 #nav-overlay
     position: absolute
-    top: $toggle-size / 2
-    left: $toggle-size / 2
+    top: calc($toggle-size / 2)
+    left: calc($toggle-size / 2)
     background: rgba(0, 0, 0, 0.8)
     border-radius: 50%
     transition: 1s
