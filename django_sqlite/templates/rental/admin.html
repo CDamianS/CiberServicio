@@ -1,18 +1,39 @@
 {% extends 'layout/base.html' %}
+{% load static %}
 
 {% block title %}
     Rental Admin CRUD
 {% endblock %}
 
 {% block extra_css %}
-
+    <link rel="stylesheet" href="{% static 'vendor/DataTables/datatables.min.css' %}">
 {% endblock %}
 
 {% block content %}
     <h1>Bienvenido a Ciber Tec</h1>
     <p>This is the admin page</p>
+
+    <table id="data-table">
+        <thead>
+            <tr>
+                <th>Student ID</th>
+                <th>Student Name</th>
+                <!-- Add more table headers for other models -->
+            </tr>
+        </thead>
+        <tbody>
+            {% for student in students %}
+                <tr>
+                    <td>{{ student.id }}</td>
+                    <td>{{ student.name }}</td>
+                    <!-- Add more table cells for other attributes -->
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
 {% endblock %}
 
 {% block js %}
-
+    <script src="{% static 'vendor/DataTables/datatables.min.js' %}"></script>
 {% endblock %}

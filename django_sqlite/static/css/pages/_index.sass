@@ -1,31 +1,121 @@
-.cyber_map
+.wrapper
+    margin: 1em auto
+    box-shadow: 0 0 5px 0 rgba(0, 0, 0, 0.06)
+
+.cards
+    padding: 15px
+    display: flex
+    flex-flow: row wrap
+
+.card
+    margin: 15px
+    width: calc((100% / 3) - 30px)
+    transition: all 0.2s ease-in-out
+
+    @media screen and (max-width: 991px)
+        width: calc((100% / 2) - 30px)
+    /* Add a property here */
+
+    @media screen and (max-width: 767px)
+        width: 100%
+
+    &:hover .card__inner
+        background-color: #1abc9c
+        transform: scale(1.05)
+
+.card__inner
+    width: 100%
+    padding: 30px
+    position: relative
+    cursor: pointer
+    background-color: #949fb0
+    color: #eceef1
+    font-size: 1.5em
+    text-align: center
+    transition: all 0.2s ease-in-out
+
+    &:after
+        transition: all 0.3s ease-in-out
+
+.card__expander
+    transition: all 0.2s ease-in-out
+    background-color: #333a45
+    width: 100%
+    position: relative
+    display: flex
+    flex-direction: column
+    justify-content: center
+    align-items: center
+    color: #eceef1
+    font-size: 1.5em
+
+    &:hover
+        opacity: 0.9
+
+.card.is-collapsed .card__inner:after
+    content: ""
+    opacity: 0
+
+.card.is-collapsed .card__expander
+    max-height: 0
+    min-height: 0
+    overflow: hidden
+    margin-top: 0
+    opacity: 0
+
+.card.is-expanded .card__inner
+    background-color: #1abc9c
+
+.card.is-expanded .card__inner:after
+    content: ""
+    opacity: 1
     display: block
-    width: $cyber_map
+    height: 0
+    width: 0
+    position: absolute
+    bottom: -30px
+    left: calc(50% - 15px)
+    border-left: 15px solid transparent
+    border-right: 15px solid transparent
+    border-bottom: 15px solid #333a45
 
-area
-    outline: 5px solid rgb(255, 0, 0)
+.card.is-expanded .card__expander
+    max-height: 1000px
+    min-height: 200px
+    overflow: visible
+    margin-top: 30px
+    opacity: 1
 
-.popup
-  padding: 20px
-  background-color: rgba(100, 100, 100, 0.9)
-  color: white
-  font-weight: 100
-  font-size: 14px
-  position: fixed
-  top: 35%
-  left: 35%
-  transform: translate(-50%, -50%)
-  opacity: 0
-  transform: scale(0)
-  transition: opacity 300ms, transform 300ms
+.card.is-expanded:hover .card__inner
+    transform: scale(1)
 
-.popup:target
-  opacity: 1
-  transform: scale(1)
+.card.is-inactive .card__inner
+    pointer-events: none
+    opacity: 0.5
 
-.popup > .close
-  position: absolute
-  right: -10px
-  top: -10px
-  background-color: black
-  padding: 4px 10px
+.card.is-inactive:hover .card__inner
+    background-color: #949fb0
+    transform: scale(1)
+
+@media screen and (min-width: 992px)
+    .card:nth-of-type(3n+2) .card__expander
+        margin-left: calc(-100% - 30px)
+
+    .card:nth-of-type(3n+3) .card__expander
+        margin-left: calc(-200% - 60px)
+
+    .card:nth-of-type(3n+4)
+        clear: left
+
+    .card__expander
+        width: calc(300% + 60px)
+
+@media screen and (min-width: 768px) and (max-width: 991px)
+    .card:nth-of-type(2n+2) .card__expander
+        margin-left: calc(-100% - 30px)
+
+    .card:nth-of-type(2n+3)
+        clear: left
+
+    .card__expander
+        width: calc(200% + 30px)
