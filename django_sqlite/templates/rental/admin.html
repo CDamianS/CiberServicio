@@ -2,18 +2,18 @@
 {% load static %}
 
 {% block title %}
-    Rental Admin CRUD
+Rental Admin CRUD
 {% endblock %}
 
 {% block extra_css %}
-    <link rel="stylesheet" href="{% static 'vendor/DataTables/datatables.min.css' %}">
+<link rel="stylesheet" href="{% static 'vendor/DataTables/datatables.min.css' %}">
 {% endblock %}
 
 {% block content %}
-    <h1>Bienvenido a Ciber Tec</h1>
-    <p>This is the admin page</p>
-
-    <table id="data-table">
+<h1>Bienvenido a Ciber Tec</h1>
+<p>This is the admin page</p>
+<div class="table-responsive">
+    <table id="students-table" class="table table-striped table-bordered">
         <thead>
             <tr>
                 <th>Student ID</th>
@@ -23,17 +23,23 @@
         </thead>
         <tbody>
             {% for student in students %}
-                <tr>
-                    <td>{{ student.id }}</td>
-                    <td>{{ student.name }}</td>
-                    <!-- Add more table cells for other attributes -->
-                </tr>
+            <tr>
+                <td>{{ student.id }}</td>
+                <td>{{ student.name }}</td>
+                <!-- Add more table cells for other attributes -->
+            </tr>
             {% endfor %}
         </tbody>
     </table>
+</div>
 
 {% endblock %}
 
 {% block js %}
-    <script src="{% static 'vendor/DataTables/datatables.min.js' %}"></script>
+<script src="{% static 'vendor/DataTables/datatables.min.js' %}"></script>
+<script>
+    $(document).ready(function() {
+        $('#students-table').DataTable();
+    });
+</script>
 {% endblock %}
