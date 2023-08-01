@@ -9,6 +9,6 @@ def _is_admin(user):
 
 urlpatterns = [
     #path('admin/', user_passes_test(_is_admin)(Admin.as_view()), name='admin'),
-    path('admin/',(Admin.as_view()), name='admin'),
-    path('biometrics/', biometricsAPI, name='biometrics')
+    path('admin',(Admin.as_view()), name='admin'),
+    path('biometrics', biometricsAPI, name='biometrics')
 ]

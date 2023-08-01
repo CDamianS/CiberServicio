@@ -19,9 +19,11 @@ from django.urls import path, include
 from .views import *
 
 urlpatterns = [
-    path('admin-django/', admin.site.urls),
+    path('admin-django', admin.site.urls),
     path('', Index.as_view(), name='index'),
-    path('regulations/', Regulations.as_view(), name='regulations'),
-    path('login/', Login.as_view(), name='login'),
+    path('regulations', Regulations.as_view(), name='regulations'),
+    path('login', Login.as_view(), name='login'),
+    path('logout', logout, name='logout'),
     path('rental/', include('rental.urls')),
+    path('api/', include('api.urls'))
 ]

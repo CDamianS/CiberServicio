@@ -15,123 +15,35 @@ Index
 <div class="wrapper">
     <div class="cards">
 
+        {% for game in games %}
         <div class=" card [ is-collapsed ] ">
             <div class="card__inner [ js-expander ]">
-                <span>Futbolito 1</span>
+                <span>{{ game.displayName }}</span><br>
                 <img src="{% static 'assets/games-cards/futbolito.jpg' %}" alt="Futbolito 1">
                 <div class="remaining__time">
-                    <span>24:13</span><span> min/seg</span>
+                    <p id="game__countdown__{{ forloop.counter }}"> No data</p>
                 </div>
+            </div>
+            <div class="card__expander">
+                <i class="fa fa-close [ js-collapser ]"></i>
                 <div class="collapsed__students">
                     <ul>
-                        <li>A01656583 x</li>
-                        <li>A01656581 x</li>
-                        <li>A01656585 x</li>
+                        {% for player in game.plays_data %}
+                        <div class="student">
+                            <li>{{ player.student_id }}</li>
+                            <form class="end-play-form" id="end-play-form-{{ player.student_id }}">
+                                {% csrf_token %}
+                                <input type="hidden" name="student_id" value="{{ player.student_id }}">
+                                <button type="submit">End Play</button>
+                            </form>
+                        </div>
+                        {% endfor %}
                     </ul>
                 </div>
             </div>
-            <div class="card__expander">
-                <i class="fa fa-close [ js-collapser ]"></i>
-                <div class="remaining__time">
-                    <span>24:13</span><span> min/seg</span>
-                </div>
-                <div class="collapsed__students">
-                    <ul>
-                        <li>A01656583 x</li>
-                        <li>A01656581 x</li>
-                        <li>A01656585 x</li>
-                    </ul>
-                </div>
-            </div>
         </div>
+        {% endfor %}
 
-        <div class=" card [ is-collapsed ] ">
-            <div class="card__inner [ js-expander ]">
-                <span>Card</span>
-                <i class="fa fa-folder-o"></i>
-            </div>
-            <div class="card__expander">
-                <i class="fa fa-close [ js-collapser ]"></i>
-                Expander
-            </div>
-        </div>
-
-        <div class=" card [ is-collapsed ] ">
-            <div class="card__inner [ js-expander ]">
-                <span>Card</span>
-                <i class="fa fa-folder-o"></i>
-            </div>
-            <div class="card__expander">
-                <i class="fa fa-close [ js-collapser ]"></i>
-                Expander
-            </div>
-        </div>
-
-        <div class=" card [ is-collapsed ] ">
-            <div class="card__inner [ js-expander ]">
-                <span>Card</span>
-                <i class="fa fa-folder-o"></i>
-            </div>
-            <div class="card__expander">
-                <i class="fa fa-close [ js-collapser ]"></i>
-                Expander
-            </div>
-        </div>
-
-        <div class=" card [ is-collapsed ] ">
-            <div class="card__inner [ js-expander ]">
-                <span>Card</span>
-                <i class="fa fa-folder-o"></i>
-            </div>
-            <div class="card__expander">
-                <i class="fa fa-close [ js-collapser ]"></i>
-                Expander
-            </div>
-        </div>
-
-        <div class=" card [ is-collapsed ] ">
-            <div class="card__inner [ js-expander ]">
-                <span>Card</span>
-                <i class="fa fa-folder-o"></i>
-            </div>
-            <div class="card__expander">
-                <i class="fa fa-close [ js-collapser ]"></i>
-                Expander
-            </div>
-        </div>
-
-        <div class=" card [ is-collapsed ] ">
-            <div class="card__inner [ js-expander ]">
-                <span>Card</span>
-                <i class="fa fa-folder-o"></i>
-            </div>
-            <div class="card__expander">
-                <i class="fa fa-close [ js-collapser ]"></i>
-                Expander
-            </div>
-        </div>
-
-        <div class=" card [ is-collapsed ] ">
-            <div class="card__inner [ js-expander ]">
-                <span>Card</span>
-                <i class="fa fa-folder-o"></i>
-            </div>
-            <div class="card__expander">
-                <i class="fa fa-close [ js-collapser ]"></i>
-                Expander
-            </div>
-        </div>
-
-        <div class=" card [ is-collapsed ] ">
-            <div class="card__inner [ js-expander ]">
-                <span>Card</span>
-                <i class="fa fa-folder-o"></i>
-            </div>
-            <div class="card__expander">
-                <i class="fa fa-close [ js-collapser ]"></i>
-                Expander
-            </div>
-        </div>
     </div>
 </div>
 {% endblock %}

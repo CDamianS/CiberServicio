@@ -11,9 +11,11 @@ class Admin(View):
         # add to the context all students, games, logs and sanctions
         context = {
             'students': Student.objects.all(),
+            'plays': Plays.objects.all(),
             'games': Game.objects.all(),
             'logs': Log.objects.all(),
-            'sanctions': Sanction.objects.all()
+            'sanctions': Sanction.objects.all(),
+            
         }
         return render(request, 'rental/admin.html', context=context)
     

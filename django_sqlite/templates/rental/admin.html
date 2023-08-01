@@ -12,25 +12,134 @@ Rental Admin CRUD
 {% block content %}
 <h1>Bienvenido a Ciber Tec</h1>
 <p>This is the admin page</p>
-<div class="table-responsive">
-    <table id="students-table" class="table table-striped table-bordered">
-        <thead>
-            <tr>
-                <th>Student ID</th>
-                <th>Student Name</th>
-                <!-- Add more table headers for other models -->
-            </tr>
-        </thead>
-        <tbody>
-            {% for student in students %}
-            <tr>
-                <td>{{ student.id }}</td>
-                <td>{{ student.name }}</td>
-                <!-- Add more table cells for other attributes -->
-            </tr>
-            {% endfor %}
-        </tbody>
-    </table>
+<div class="crud-tables">
+    <div class="table-responsive">
+        <h2 class="table-title">Students Table</h2>
+        <table id="students-table" class="table table-striped table-bordered">
+            <thead>
+                <tr>
+                    <th>Student ID</th>
+                    <th>Student Name</th>
+                    <!-- Add more table headers for other models -->
+                </tr>
+            </thead>
+            <tbody>
+                {% for student in students %}
+                <tr>
+                    <td>{{ student.id }}</td>
+                    <td>{{ student.name }}</td>
+                    <!-- Add more table cells for other attributes -->
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    <div class="table-responsive">
+        <h2 class="table-title">Plays Table</h2>
+        <table id="plays-table" class="table table-striped table-bordered">
+            <thead>
+                <tr>
+                    <th>Student</th>
+                    <th>Game</th>
+                    <th>Time</th>
+                    <th>Ended</th>
+                    <!-- Add more table headers for other models -->
+                </tr>
+            </thead>
+            <tbody>
+                {% for play in plays %}
+                <tr>
+                    <td>{{ play.student.id }}</td>
+                    <td>{{ play.game.name }}</td>
+                    <td>{{ play.time }}</td>
+                    <td>{{ play.ended }}</td>
+                    <!-- Add more table cells for other attributes -->
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    <div class="table-responsive">
+        <h2 class="table-title">Games Table</h2>
+        <table id="games-table" class="table table-striped table-bordered">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Name</th>
+                    <th>Display Name</th>
+                    <th>Available</th>
+                    <th>Show</th>
+                    <!-- Add more table headers for other models -->
+                </tr>
+            </thead>
+            <tbody>
+                {% for game in games %}
+                <tr>
+                    <td>{{ game.id }}</td>
+                    <td>{{ game.name }}</td>
+                    <td>{{ game.displayName }}</td>
+                    <td>{{ game.available }}</td>
+                    <td>{{ game.show }}</td>
+                    <!-- Add more table cells for other attributes -->
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    <div class="table-responsive">
+        <h2 class="table-title">Logs Table</h2>
+        <table id="logs-table" class="table table-striped table-bordered">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>User</th>
+                    <th>Action Performed</th>
+                    <th>Time</th>
+                    <!-- Add more table headers for other models -->
+                </tr>
+            </thead>
+            <tbody>
+                {% for log in logs %}
+                <tr>
+                    <td>{{ log.id }}</td>
+                    <td>{{ log.user.username }}</td>
+                    <td>{{ log.actionPerformed }}</td>
+                    <td>{{ log.time }}</td>
+                    <!-- Add more table cells for other attributes -->
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    <div class="table-responsive">
+        <h2 class="table-title">Sanctions Table</h2>
+        <table id="sanctions-table" class="table table-striped table-bordered">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Student</th>
+                    <th>Cause</th>
+                    <th>Play Reference</th>
+                    <th>Start Time</th>
+                    <th>End Time</th>
+                    <!-- Add more table headers for other models -->
+                </tr>
+            </thead>
+            <tbody>
+                {% for sanction in sanctions %}
+                <tr>
+                    <td>{{ sanction.id }}</td>
+                    <td>{{ sanction.student.id }}</td>
+                    <td>{{ sanction.cause }}</td>
+                    <td>{{ sanction.play.id }}</td>
+                    <td>{{ sanction.start_time }}</td>
+                    <td>{{ sanction.end_time }}</td>
+                    <!-- Add more table cells for other attributes -->
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
 </div>
 
 {% endblock %}
@@ -38,8 +147,12 @@ Rental Admin CRUD
 {% block js %}
 <script src="{% static 'vendor/DataTables/datatables.min.js' %}"></script>
 <script>
-    $(document).ready(function() {
+    $(document).ready(function () {
         $('#students-table').DataTable();
+        $('#plays-table').DataTable();
+        $('#games-table').DataTable();
+        $('#logs-table').DataTable();
+        $('#sanctions-table').DataTable();
     });
 </script>
 {% endblock %}
