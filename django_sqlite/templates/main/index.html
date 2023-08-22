@@ -39,6 +39,12 @@ Index
                         </div>
                         {% endfor %}
                     </ul>
+                    <form class="add-student-game" id="add-student-game-{{ game.id }}">
+                        {% csrf_token %}
+                        <input type="hidden" name="game_id" value="{{ game.id }}">
+                        <input type="text" name="student_id" placeholder="Student ID">
+                        <button type="submit">Add Student</button>
+                    </form>
                 </div>
             </div>
         </div>

@@ -7,7 +7,7 @@ from rental.models import Game, Plays
 # Views for Index Page
 class Index(View):
     def get(self, request):
-        games = Game.objects.filter(show=True).values('name', 'displayName', 'available')
+        games = Game.objects.filter(show=True).values('id', 'name', 'displayName', 'available')
         for game in games:
 
             plays = Plays.objects.filter(game__name=game['name'], ended=False)

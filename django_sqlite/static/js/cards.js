@@ -56,6 +56,45 @@ $(document).ready(function () {
             },
         });
     });
+
+    // Game add student form
+    $(".add-student-game").submit(function (event) {
+        event.preventDefault();
+        const form = $(this);
+        const gameId = form.find("input[name=game_id]").val();
+        const studentId = form.find("input[name=student_id]").val();
+
+        $.ajax({
+            type: "POST",
+            url: "/api/add-student-to-game",
+            data: form.serialize(),
+            dataType: "json",
+            beforeSend: function (xhr, settings) {
+                // Disable the submit button to prevent multiple submissions
+                form.find("button[type=submit]").prop("disabled", true);
+            },
+            success: function (data) {
+                // Handle successful response
+                if (data.status === "success") {
+                    console.log("Student added to game successfully:", studentId);
+
+                    // Optionally, update the UI to reflect the added student
+                    const studentList = form.siblings("ul");
+                    studentList.append('<div class="student"><li>' + studentId + '</li></div>');
+                } else {
+                    console.error("Error: " + data.message);
+                }
+            },
+            error: function (xhr, status, error) {
+                console.error("AJAX request failed:", status, error);
+            },
+            complete: function () {
+                // Clear the student ID input and re-enable the submit button after the request is complete
+                form.find("input[name=student_id]").val("");
+                form.find("button[type=submit]").prop("disabled", false);
+            },
+        });
+    });
 });
 
 // Fetch and create Countdowns
